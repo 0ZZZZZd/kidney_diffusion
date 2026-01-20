@@ -1,0 +1,52 @@
+{
+  "name": "kidney_ct_enhancement",
+  "gpu_ids": [0],
+  "seed": 42,
+
+  "path": {
+    "data_root": "datasets",
+    "checkpoint_dir": "experiments/kidney_enhance/checkpoints",
+    "log_dir": "experiments/kidney_enhance/logs",
+    "sample_dir": "experiments/kidney_enhance/samples"
+  },
+
+  "model": {
+    "in_channels": 2,
+    "out_channels": 1,
+    "image_size": 512,
+    "base_channels": 64,
+    "channel_mult": [1, 2, 4, 8],
+    "num_res_blocks": 2,
+    "attention_resolutions": [16],
+    "dropout": 0.1,
+
+    "timesteps": 1000,
+    "beta_schedule": {
+      "schedule": "linear",
+      "beta_start": 1e-4,
+      "beta_end": 2e-2
+    }
+  },
+
+  "train": {
+    "epochs": 500,
+    "batch_size": 4,
+    "lr": 2e-5,
+    "weight_decay": 1e-4,
+    "grad_clip": 1.0,
+    "log_interval": 50,
+    "save_interval": 10,
+    "val_interval": 5
+  },
+
+  "data": {
+    "nonenh_dir": "nonenh",
+    "enh_dir": "enh",
+    "num_workers": 4,
+    "pin_memory": true,
+    "augmentation": {
+      "horizontal_flip": 0.5,
+      "rotation": 10
+    }
+  }
+}
