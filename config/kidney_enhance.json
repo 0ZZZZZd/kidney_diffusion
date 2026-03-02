@@ -4,23 +4,24 @@
   "seed": 42,
 
   "path": {
-    "data_root": "datasets",
-    "checkpoint_dir": "experiments/kidney_enhance/checkpoints",
+    "data_root": "Dataset",
+    "checkpoint_dir": "checkpoints",
     "log_dir": "experiments/kidney_enhance/logs",
     "sample_dir": "experiments/kidney_enhance/samples"
   },
 
   "model": {
-    "in_channels": 2,
+    "in_channels": 3,
     "out_channels": 1,
     "image_size": 512,
     "base_channels": 64,
     "channel_mult": [1, 2, 4, 8],
     "num_res_blocks": 2,
-    "attention_resolutions": [16],
+    "attention_resolutions": [128, 64, 32],
     "dropout": 0.1,
+    "img2img_t": 200,
 
-    "timesteps": 1000,
+    "timesteps": 500,
     "beta_schedule": {
       "schedule": "linear",
       "beta_start": 1e-4,
@@ -30,18 +31,21 @@
 
   "train": {
     "epochs": 500,
-    "batch_size": 4,
+    "batch_size": 1,
     "lr": 2e-5,
     "weight_decay": 1e-4,
     "grad_clip": 1.0,
     "log_interval": 50,
     "save_interval": 10,
-    "val_interval": 5
+    "val_interval": 20,
+    "recon_weight": 0.1,
+    "edge_weight": 0.05
   },
 
   "data": {
     "nonenh_dir": "nonenh",
-    "enh_dir": "enh",
+    "phase1_dir": "phase1",
+    "phase3_dir": "phase2",
     "num_workers": 4,
     "pin_memory": true,
     "augmentation": {
